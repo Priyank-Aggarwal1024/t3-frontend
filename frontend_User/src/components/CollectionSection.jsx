@@ -49,41 +49,41 @@ const collections = [
 ];
 
 const CollectionSection = () => {
-    // const {collections, loading, error} = useCollections();
+  // const {collections, loading, error} = useCollections();
   return (
     <div className="w-full">
       <div className="grid grid-cols-1 md:grid-cols-3">
         {collections.map((collection, index) => (
-          <Link to={`/collections/${collection.name}`}>
-          <div 
-            key={index} 
-            className="relative aspect-square overflow-hidden group"
-          >
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/40 z-10" />
-            
-            {/* Image */}
-            <img 
-              src={collection.image}
-              alt={collection.name} 
-              className="w-full h-full object-cover"
-            />
-            
-            {/* Content */}
-            <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between">
-              {/* Title */}
-              <h2 className="text-white text-2xl md:text-3xl font-semibold">
-                {collection.name}
-              </h2>
-              
-              {/* Description and Button */}
-              <div className="space-y-4">
-                <p className="text-white text-sm md:text-base">
-                  {collection.description}
-                </p>
+          <Link to={`/collections/${collection.name}`} key={index}>
+            <div
+              key={index}
+              className="relative aspect-square overflow-hidden group"
+            >
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-black/40 z-10" />
+
+              {/* Image */}
+              <img
+                src={collection.image}
+                alt={collection.name}
+                className="w-full h-full object-cover"
+              />
+
+              {/* Content */}
+              <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between">
+                {/* Title */}
+                <h2 className="text-white text-2xl md:text-3xl font-semibold">
+                  {collection.name}
+                </h2>
+
+                {/* Description and Button */}
+                <div className="space-y-4">
+                  <p className="text-white text-sm md:text-base">
+                    {collection.description}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
           </Link>
         ))}
       </div>

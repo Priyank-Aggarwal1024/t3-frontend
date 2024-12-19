@@ -4,7 +4,7 @@ import axios from "axios";
 const fetchEvents = async () => {
   const url = "/api/products";
   const response = await axios.get(url);
-console.log(response.data.products);
+  console.log(response.data.products);
   // Replace http with https in image URLs
   const events = response.data.products
     // .filter((event) => event.status !== " ")
@@ -24,7 +24,7 @@ console.log(response.data.products);
       return event;
     });
 
-    console.log(events);
+  console.log(events);
 
 
   return events;

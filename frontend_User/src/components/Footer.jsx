@@ -10,143 +10,143 @@ function Footer() {
     <footer
       className={`bg-white text-black z-20 w-full`}
     >
-      <div className=" p-8 bg-white flex w-full justify-between items-baseline">
-      <div className="my-4 flex items-center">
-        <img src={logo} width={350} alt="" />
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left w-1/2">
-      <div>
-          <h4 className="text-md font-medium ">For Users</h4>
-          <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1 "}>
-            <Link
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-              to={"/about"}
-            >
-              About
-            </Link>
-            <Link
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-              to={"/blogs"}
-            >
-              Blogs
-            </Link>
-            <Link
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-              to={"/account"}
-            >
-              Account
-            </Link>
-            <Link
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-              to={"/contact-us"}
-            >
-              Help & Support
-            </Link>
-          </div>
+      <div className=" sm:p-8 p-4 bg-white flex w-full justify-between items-baseline lg:flex-row flex-col gap-6">
+        <div className="my-4 flex items-center">
+          <img src={logo} width={350} alt="" />
         </div>
-
-
-        <div>
-          <h4 className="text-md font-medium ">For Products</h4>
-          <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1"}>
-            <Link
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-              to={"/sign-up"}              
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Register
-            </Link>
-            <Link
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-              to={"/sign-in"}              
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Login
-            </Link>
-            <Link
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-              to={"/subscription"}              
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Subscription
-            </Link>
-            <Link
-              to="/contact-support"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              Submit Feedback
-            </Link>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left lg:w-1/2 w-full">
+          <div>
+            <h4 className="text-md font-medium ">For Users</h4>
+            <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1 "}>
+              <Link
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+                to={"/about"}
+              >
+                About
+              </Link>
+              <Link
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+                to={"/blogs"}
+              >
+                Blogs
+              </Link>
+              <Link
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+                to={"/account"}
+              >
+                Account
+              </Link>
+              <Link
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+                to={"/contact-us"}
+              >
+                Help & Support
+              </Link>
+            </div>
           </div>
-        </div>
 
 
-        <div>
-          <h4 className="text-md font-medium">Resources</h4>
-          <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1 "}>
-            <Link
-              to="/blogs"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              Blogs
-            </Link>
-            <Link
-              to="/contact-us"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              Contact
-            </Link>
-            <Link
-              to="/tnc"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              Terms & Conditions
-            </Link>
-            <Link
-              to="/privacy-policy"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              Privacy Policy
-            </Link>
+          <div>
+            <h4 className="text-md font-medium ">For Products</h4>
+            <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1"}>
+              <Link
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+                to={"/sign-up"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Register
+              </Link>
+              <Link
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+                to={"/sign-in"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Login
+              </Link>
+              <Link
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+                to={"/subscription"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Subscription
+              </Link>
+              <Link
+                to="/contact-support"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Submit Feedback
+              </Link>
+            </div>
           </div>
-        </div>
 
 
-        
-
-        <div>
-          <h4 className="text-md font-medium ">Company</h4>
-          <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1"}>
-          <Link
-              to="/about"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              About Us
-            </Link>
-            <Link
-              to="/careers"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              Careers
-            </Link>
-            <Link
-              to="/press"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              Press
-            </Link>
-            <Link
-              to="/partners"
-              className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
-            >
-              Partners
-            </Link>
-
+          <div>
+            <h4 className="text-md font-medium">Resources</h4>
+            <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1 "}>
+              <Link
+                to="/blogs"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Blogs
+              </Link>
+              <Link
+                to="/contact-us"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Contact
+              </Link>
+              <Link
+                to="/tnc"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Terms & Conditions
+              </Link>
+              <Link
+                to="/privacy-policy"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Privacy Policy
+              </Link>
+            </div>
           </div>
-        </div>
-        {/* <div>
+
+
+
+
+          <div>
+            <h4 className="text-md font-medium ">Company</h4>
+            <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1"}>
+              <Link
+                to="/about"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                About Us
+              </Link>
+              <Link
+                to="/careers"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Careers
+              </Link>
+              <Link
+                to="/press"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Press
+              </Link>
+              <Link
+                to="/partners"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Partners
+              </Link>
+
+            </div>
+          </div>
+          {/* <div>
           <div
             className={
               "mt-4 lg:mb-0 text-xs flex flex-col space-y-1 opacity-50"
@@ -158,8 +158,8 @@ function Footer() {
           </div>
         </div> */}
 
-        <div>
-          {/* <ul className="list-unstyled  gap-4 flex justify-end">
+          <div>
+            {/* <ul className="list-unstyled  gap-4 flex justify-end">
             <li>
               <Link
                 className=" mt-1  0 font-semibold  pb-1 text-sm"
@@ -184,13 +184,13 @@ function Footer() {
             </li>
           </ul> */}
 
-          {/* <div className="text-right  mt-4 lg:mt-2 lg:text-center">
+            {/* <div className="text-right  mt-4 lg:mt-2 lg:text-center">
             <div className="text-sm  font-semibold ">
               <p>&copy; {new Date().getFullYear()} All Rights Reserved</p>
             </div>
           </div> */}
+          </div>
         </div>
-      </div>
 
       </div>
       <hr className="border-gray-300" />

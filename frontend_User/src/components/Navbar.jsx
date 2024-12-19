@@ -51,7 +51,7 @@ const Navbar = () => {
     : [];
 
   return (
-    <nav className="p-2 py-4 bg-transparent fixed top-0 w-full z-40">
+    <nav className="p-2 py-4 bg-transparent fixed top-0 w-full z-40 backdrop-blur-sm">
       <div className="px-2 md:px-12 py-4 flex justify-center items-center">
         {/* Logo */}
         <div className="">
