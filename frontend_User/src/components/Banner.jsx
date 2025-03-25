@@ -1,71 +1,93 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Loader from './Loader';
-import video from '../assets/icehockey.mp4'
-import useCollections from "../hooks/useCollections";
-import { RxArrowTopRight } from "react-icons/rx";
-
+import React, { useEffect, useRef, useState } from "react";
+import { client } from "../utils/sanity/client";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Autoplay } from "swiper/modules";
+import { GrPrevious, GrNext } from "react-icons/gr";
 
 const Banner = () => {
-  const { collections, isLoading, error } = useCollections(); // Use the custom hook
-
-  if (isLoading) {
-    return <Loader />; // Display loader while fetching data
-  }
-
-  if (error) {
-    return <p className="text-red-500">Error fetching collections: {error.message}</p>; // Display error message
-  }
+  const [banners, setBanners] = useState([]);
+  const swiper = useRef();
+  const fetchBanners = async () => {
+    try {
+      const data = await client.fetch(`*[_type == "banner"]{
+  large{asset->{url}},
+  small{asset->{url}},
+  link,
+  buttonText
+}`);
+      setBanners(data);
+    } catch (error) {
+      console.error("Error fetching banners:", error);
+      setBanners([]);
+    }
+  };
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  useEffect(() => {
+    fetchBanners();
+  }, []);
 
   return (
-    <div className="">
-      <div className="w-full h-screen relative overflow-hidden">
-        <img src="https://ik.imagekit.io/foogrshml/unsplash_ZSW4OGXvSSI_new.png?updatedAt=1730410139819" alt="" className="w-full h-full object-cover brightness-75" />
-      </div>
-      {/* <img src="https://ik.imagekit.io/foogrshml/unsplash_ZSW4OGXvSSI-removebg-preview%201.png?updatedAt=1730434497815" alt="" className="w-full h-screen top-0 object-cover z-50 absolute" /> */}
-      <div className="absolute top-28 sm:pl-12 pl-6 text-white">
-        <p className="animate-slidein opacity-0 [--slidein-delay:300ms] font-bold ">MADE BY ATHLETES. FOR EVERYONE.</p>
-        <h2 className="text-[36px] leading-9 xs:text-[50px] xs:leading-[50px] lg:text-[80px] lg:leading-[80px] md:text-[64px] md:leading-[64px] xl:text-[125px] tracking-wide xl:leading-[125px] text-lightPrimary z-10 font-black sm:mb-4 mb-2 animate-slidein opacity-0 [--slidein-delay:300ms]">WEAR YOUR <br />REASON</h2>
-        <p className="flex-wrap md:w-1/2 w-[80%] text-sm mb-4 animate-slidein opacity-0 [--slidein-delay:500ms]">Breaths turn into laps. Jogs turn into marathons. Layups turn into level ups. Wonderful things happen when we benchmark ourselves for growth, triumph and self-actualization. T3 offers a range of ultra-practical designs that enable you to raise the bar for yourself so you can perform at your best while we take care of the rest.</p>
-
-        <Link to="/all-products">
-          <button className="bg-white text-sm text-black gap-10 pl-8 pr-2 py-2 rounded-full flex items-center justify-between h2 animate-slidein opacity-0 [--slidein-delay:700ms]">VIEW STORE <span className="bg-black rounded-full p-2"><RxArrowTopRight color="white" /></span></button>
-        </Link>
-      </div>
-
-      <div className="flex items-center gap-8 absolute xs:right-12 right-6 xs:top-[80vh] top-[85vh]">
-        <div className="animate-slidein opacity-0 [--slidein-delay:700ms] text-white">
-          <h2 className="xxs:text-7xl text-5xl">200+</h2>
-          <p className="text-xs">TOP TIERS AVAILABLE</p>
-        </div>
-        <div className="animate-slidein opacity-0 [--slidein-delay:700ms] text-white">
-          <h2 className="xxs:text-7xl text-5xl">10+</h2>
-          <p className="text-xs">STORES PAN INDIA</p>
-        </div>
-      </div>
-
-      {/* <div className="px-4 md:px-12 my-8 flex gap-4 flex-col">
-        <div className="flex flex-col md:flex-row gap-6 w-full">
-          {collections.length > 0 ? (
-            <div className="flex overflow-auto w-full gap-4 md:gap-2">
-              <div className="bg-primary dark:text-white p-8 md:flex flex-col rounded-md w-fit">
-                <Link to={`/categories`} className="relative">
-                  <span>All Collections</span>
-                </Link>
+    <div className="w-screen relative max-w-screen md:h-[calc(100vh_-_202px)] h-[calc(100vh_-_78px)]">
+      <button
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl dark:text-[#0C8FD7] z-[3]"
+        onClick={() => swiper.current?.swiper?.slidePrev()}
+      >
+        <GrPrevious />
+      </button>
+      <button
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 text-4xl dark:text-[#0C8FD7] z-[3]"
+        onClick={() => swiper.current?.swiper?.slideNext()}
+      >
+        <GrNext />
+      </button>
+      <Swiper
+        loop={true}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        spaceBetween={10}
+        slidesPerView={1}
+        className="w-full max-w-full h-full"
+        modules={[Autoplay]}
+        ref={swiper}
+      >
+        {banners && banners.length > 0 ? (
+          banners.map((banner, index) => (
+            <SwiperSlide key={index} className="relative max-w-full">
+              <img
+                src={
+                  width < 760
+                    ? banner.small?.asset?.url
+                    : banner.large?.asset?.url
+                }
+                className="w-full h-full"
+              />
+              <div className="w-full absolute  top-0 z-[2] h-full flex items-end justify-end bg-black bg-opacity-0">
+                {banner.buttonText && banner.link && (
+                  <a
+                    href={banner.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 text-white bg-transparent border rounded-lg shadow-md transition mr-12 mb-12"
+                  >
+                    {banner.buttonText}
+                  </a>
+                )}
               </div>
-              {collections.map((item) => (
-                <div key={item._id} className="bg-white dark:text-primary p-8 md:flex flex-col rounded-md font-semibold font-poppins w-fit">
-                  <Link to={`/collections/${item.name}`} className="relative">
-                    <span>{item.name}</span>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>No collections available.</p>
-          )}
-        </div>
-      </div> */}
+            </SwiperSlide>
+          ))
+        ) : (
+          <p className="text-center mt-10 text-gray-500">Loading banners...</p>
+        )}
+      </Swiper>
     </div>
   );
 };

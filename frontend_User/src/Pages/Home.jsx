@@ -1,101 +1,42 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import EventCard from "../components/EventCard";
+import React, { useEffect, useState } from "react";
 import Banner from "../components/Banner";
-import useEvents from "../hooks/useEvents";
-import toast from "react-hot-toast";
-
-import {
-  updateUserStart,
-  updateUserSuccess,
-  updateUserFailure,
-} from "../redux/user/userSlice";
-import Loader from "../components/Loader";
-import { IoIosArrowDown } from "react-icons/io";
-import { ScrollRestoration } from "react-router-dom";
-import CategorySection from '../components/CategorySection'
+import { Link, ScrollRestoration } from "react-router-dom";
 import AboutSection from "../components/AboutSection";
-import CollectionSection from "../components/CollectionSection";
+import BrandsMarquee from "../components/BrandsMarque";
+import { client } from "../utils/sanity/client";
+import TopSellingProducts from "../components/TopSellingProducts";
+import ServicesSection from "../components/Services";
+import NewsLetter from "../components/NewsLetter";
+import NoDataFound from "../components/NoDataFound";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
-  const [formData, setFormData] = useState(currentUser);
-  const [showModal, setShowModal] = useState(false);
-  const [events, loading] = useEvents();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const city = useSelector((state) => state.user.city);
-  const state = useSelector((state) => state.user.state);
-  const [products, setProducts] = useState([]);
-
-  // State for managing the number of events shown on mobile
-  const [eventsToShow, setEventsToShow] = useState(5); // Initial number of events to show on mobile
+  const [shopByCategory, setShopByCategory] = useState([]);
 
   useEffect(() => {
-    if (currentUser) {
-      setShowModal(true);
-    } else {
-      setFormData(currentUser);
-    }
-  }, [currentUser]);
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    try {
-      dispatch(updateUserStart());
-      const response = await axios.post(
-        `/api/user/update/${currentUser._id}`,
-        formData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      const data = response.data;
-      if (data.success === false) {
-        dispatch(updateUserFailure(data.message));
-        return;
-      }
-
-      dispatch(updateUserSuccess(data));
-      setShowModal(false);
-    } catch (error) {
-      dispatch(updateUserFailure(error.message));
-      toast.error("Error in updating Details");
-    }
-  };
-
-  useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchShopByCategory = async () => {
       try {
-        const response = await axios.get("/api/products");
-        setProducts(response.data.products);
+        const query = `
+          *[_type == "shopByCategory"]{
+            title,
+            "imageUrl": image.asset->url,
+            _id,
+            products[]->{
+              name,
+              price,
+              "imageUrl": images[0].asset->url
+            }
+          }
+        `;
+        const data = await client.fetch(query);
+        setShopByCategory(data);
       } catch (error) {
-        console.error("Error fetching products", error);
+        console.error("Error fetching shop by category:", error);
       }
     };
 
-    fetchProducts();
+    fetchShopByCategory();
   }, []);
-
-  const allEvents = useMemo(() => {
-    if (events) {
-      return events;
-    }
-    return [];
-  }, [events, city, state]);
-
-  // Irrespective of the location, showing promotional events
-  const promotionalEvents = useMemo(() => {
-    return [
-      ...(events || []).filter(
-        (event) => event.promotion === true && event.status !== "unverified"
-      ),
-      ,
-    ].reverse();
-  }, [events]);
-
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -108,54 +49,61 @@ const Home = () => {
     };
   }, []);
 
-  const maxEventsToShow = useMemo(() => {
-    if (windowWidth < 640) return eventsToShow; // Show based on the current state
-    return allEvents.length; // Show all events on larger screens
-  }, [windowWidth, allEvents.length, eventsToShow]);
-
-  const handleShowMore = () => {
-    setEventsToShow((prevEventsToShow) => prevEventsToShow + 5); // Increase count by 5
-  };
-
   return (
-    <div className="bg-white dark:bg-darkPrimary dark:text-white min-h-screen py-0  flex flex-col gap-4">
-      <ScrollRestoration />
-      <div className="relative">
+    <>
+      <div className="bg-white w-screen dark:bg-darkPrimary dark:text-white max-w-[100vw]">
+        <ScrollRestoration />
         <Banner />
-        <CategorySection />
-        <AboutSection />
-        <CollectionSection />
-      </div>
-      {/* {loading ? (
-        <Loader />
-      ) : (
-        <div>
-          <div className="z-10 px-4 md:px-12 py-8">
-            <h3 className="text-black dark:text-white font-semibold text-2xl p-2 mb-4">
-              ALL PRODUCTS
-            </h3>
+        <div className="max-w-full flex flex-col xl:gap-24 lg:gap-20 gap-16 py-16">
+          <div className="w-full">
+            <h2 className="xl:text-4xl text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black pb-6">
+              Shop by Category
+            </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2">
-              {products
-                .map((event) => (
-                  <EventCard key={event._id} event={event} />
+            {shopByCategory.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
+                {shopByCategory.map((category, idx) => (
+                  <div
+                    key={idx}
+                    className="relative aspect-square flex items-center justify-center text-white font-bold text-lg cursor-pointer"
+                    style={{
+                      backgroundImage: `url(${category.imageUrl})`,
+                      backgroundSize: "100% 100%",
+                      backgroundPosition: "center center",
+                    }}
+                  >
+                    {/* Responsive Aspect Ratio for Better Adaptability */}
+                    <div className="absolute inset-0 bg-black/60"></div>
+
+                    <div className="relative z-[4] flex flex-col gap-3 items-center text-center p-4">
+                      {/* Title - Adjusts on Small Screens */}
+                      <h2 className="mb-1 text-sm sm:text-lg md:text-xl lg:text-2xl font-poppins">
+                        {category.title}
+                      </h2>
+
+                      {/* CTA Button */}
+                      <Link
+                        to={`/shop-by-category/${category._id}`}
+                        className="bg-yellow-500 text-black px-3 sm:px-4 py-2 text-xs sm:text-sm md:text-base font-bold rounded-md hover:bg-yellow-600 transition-all duration-300"
+                      >
+                        Shop Now
+                      </Link>
+                    </div>
+                  </div>
                 ))}
-            </div>
-
-            {windowWidth < 640 && maxEventsToShow < products.length && (
-              <button
-                className="w-1/2 flex justify-center mx-auto bg-black text-white  dark:bg-primary dark:text-black  py-2 px-4 rounded-md mt-4"
-                onClick={handleShowMore}
-              >
-                <span className="flex gap-1 text-sm justify-center items-center ">
-                  Show More <IoIosArrowDown />
-                </span>
-              </button>
+              </div>
+            ) : (
+              <NoDataFound text={"No Data found in Shop By Category"} />
             )}
           </div>
+          <TopSellingProducts />
+          <BrandsMarquee windowWidth={windowWidth} />
+          <AboutSection />
+          <ServicesSection />
+          <NewsLetter />
         </div>
-      )} */}
-    </div>
+      </div>
+    </>
   );
 };
 

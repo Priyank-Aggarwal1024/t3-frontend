@@ -1,14 +1,6 @@
-import { createContext, useContext } from "react";
-
-export const ThemeContext = createContext({
-    themeMode: "light",
-    darkTheme: () => {},
-    lightTheme: () => {},
-});
-
-export const ThemeProvider = ThemeContext.Provider;
-
+import { useContext } from "react";
+import { ThemeContext } from "./ThemeProvider";
 
 export default function useTheme() {
-    return useContext(ThemeContext);
+  return useContext(ThemeContext);
 }

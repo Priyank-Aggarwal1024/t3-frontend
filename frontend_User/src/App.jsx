@@ -1,32 +1,18 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import { ThemeProvider } from "./contexts/theme";
 import Footer from "./components/Footer";
-import Loader from '../src/components/Loader'
+import Loader from "../src/components/Loader";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
+import ScrollToTop from "./components/ScrollToTop";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 axios.defaults.withCredentials = true;
-axios.defaults.headers.common['X-API-Key'] = import.meta.env.VITE_BACKEND_API_KEY;
+axios.defaults.headers.common["X-API-Key"] =
+  import.meta.env.VITE_BACKEND_API_KEY;
 
 const App = () => {
-  const [themeMode, setThemeMode] = useState(localStorage.getItem("themeMode") || "light");
-  // Toggle functions for theme
-  const darkTheme = useCallback(() => setThemeMode("light"), []);
-  const lightTheme = useCallback(() => setThemeMode("light"), []);
-
-  const updateTheme = useCallback(() => {
-    document.documentElement.className = themeMode;
-    localStorage.setItem("themeMode", themeMode);
-  }, [themeMode]);
-
-  useEffect(() => {
-    updateTheme();
-  }, [updateTheme]);
-
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,28 +22,32 @@ const App = () => {
 
   return (
     <>
+      <div className="w-full"></div>
       {loading ? (
         <Loader />
       ) : (
         <>
-      <Navbar />
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          duration: 2000,
-          style: {
-            background: "#0395d0",
-            fontSize: '12px',
-            color: "#000",
-            fontFamily: "Urbanist, 'sans-serif",
-            borderRadius: "100px",
-            boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.1)",
-          },
-        }}
-      />
-      <Outlet />
-      <Footer />
-      </>
+          <Navbar />
+          <ScrollToTop />
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              duration: 2000,
+              style: {
+                background: "#0395d0",
+                fontSize: "12px",
+                color: "#000",
+                fontFamily: "Urbanist, 'sans-serif",
+                borderRadius: "100px",
+                boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.1)",
+              },
+            }}
+          />
+          <div className="w-[100vw] overflow-x-hidden">
+            <Outlet />
+          </div>
+          <Footer />
+        </>
       )}
     </>
   );

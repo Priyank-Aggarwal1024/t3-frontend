@@ -1,0 +1,37 @@
+import { useEffect, useState } from "react";
+import { client } from "../utils/sanity/client";
+import Marquee from "react-fast-marquee";
+function BrandsMarquee({ windowWidth }) {
+  const [brands, setBrands] = useState([]);
+  const fetchBrands = async () => {
+    try {
+      const brands = await client.fetch(`*[_type == "brand"] {
+              name,
+              "smallImageUrl": small.asset->url,
+              "largeImageUrl": large.asset->url
+            }`);
+      setBrands(brands);
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+    }
+  };
+  useEffect(() => {
+    fetchBrands();
+  }, []);
+  return (
+    <div className="w-full max-w-full">
+      <Marquee speed={50} gradient={false} pauseOnHover>
+        {brands.map((brand, index) => (
+          <img
+            src={windowWidth < 780 ? brand.smallImageUrl : brand.largeImageUrl}
+            alt={brand.name}
+            key={index}
+            className="md:h-[100px] md:aspect-[113/100] md:mx-4 mx-1 md:w-[113px] xs:w-[163px] xs:h-[50px] w-[108px] aspect-[326/100]"
+          />
+        ))}
+      </Marquee>
+    </div>
+  );
+}
+
+export default BrandsMarquee;

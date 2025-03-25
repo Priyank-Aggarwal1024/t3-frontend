@@ -7,12 +7,11 @@ function ThemeBtn() {
 
   const onChangeTheme = () => {
     if (themeMode === "dark") {
-      darkTheme(); // Call darkTheme function from context
+      lightTheme();
     } else {
-      lightTheme(); // Call lightTheme function from context
+      darkTheme();
     }
   };
-
   return (
     <button
       className="flex items-center rounded-md text-xs focus:outline-none"

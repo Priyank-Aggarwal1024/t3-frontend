@@ -1,33 +1,44 @@
-@import url('https://fonts.cdnfonts.com/css/helvetica-neue-lt-pro-2');
-@import url('https://fonts.cdnfonts.com/css/impact');
-
+@import url("https://fonts.cdnfonts.com/css/helvetica-neue-lt-pro-2");
+@import url("https://fonts.cdnfonts.com/css/impact");
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-body{
-  background-color: #f6f6f6!important;
+body {
+  background-color: #f6f6f6 !important;
 }
-
+#root {
+  max-width: 100vw;
+  width: 100vw;
+}
 @keyframes wiggle {
-    0% { transform: rotate(0deg); }
-   25% { transform: rotate(5deg); }
-   50% { transform: rotate(0deg); }
-   75% { transform: rotate(-5deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .wiggle:hover {
   animation: wiggle 0.5s;
 }
-
 
 /* *::-webkit-media-controls-panel {
 
@@ -53,18 +64,22 @@ body{
 
 } */
 
-
-
-h1, .h1,
-h2, .h2,
-h3,.h3,
-h4,.h4,
-h5,.h5,
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
 h6,
-label {
+span label {
   /* font-family: 'Urbanist', sans-serif; */
   /* font-family: 'Liberation Sans Bold'; */
-  font-family: 'Anton', serif;
+  font-family: "Anton", serif;
+  letter-spacing: 1.4px;
   /* font-family: 'Clash Display', sans-serif; */
 }
 
@@ -84,10 +99,9 @@ input,
 textarea,
 option,
 div,
-span,
 ul,
 ::placeholder {
-  font-family: 'Satoshi', sans-serif;
+  font-family: "Satoshi", sans-serif;
 }
 
 ul {
@@ -125,20 +139,19 @@ li {
 
 @keyframes lineAnim {
   0% {
-      left: -40%;
+    left: -40%;
   }
   50% {
-      left: 20%;
-      width: 80%;
+    left: 20%;
+    width: 80%;
   }
   100% {
-      left: 100%;
-      width: 100%;
+    left: 100%;
+    width: 100%;
   }
 }
 
-
-.active{
+.active {
   background-color: white;
   border-radius: 100%;
   color: #1b1b1b;
@@ -177,50 +190,52 @@ li {
 .c2 {
   background-color: rgba(156, 39, 176, 0.5);
 }
-.glass{
+.glass {
   background: rgba(255, 255, 255, 0.25);
-/* box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.25); */
-backdrop-filter: blur( 5px );
--webkit-backdrop-filter: blur( 5px );
+  /* box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.25); */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
-.morphism{
-background: rgba(255, 255, 255, 13%);
-backdrop-filter: blur(31.2%);
--webkit-backdrop-filter: blur(31.2%);
-border: 1px solid rgba(255, 255, 255, 20%);
+.morphism {
+  background: rgba(255, 255, 255, 13%);
+  backdrop-filter: blur(31.2%);
+  -webkit-backdrop-filter: blur(31.2%);
+  border: 1px solid rgba(255, 255, 255, 20%);
 }
-.glassDark{
+.glassDark {
   background: rgba(0, 0, 0, 0.25);
-/* box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.25); */
-backdrop-filter: blur( 5px );
--webkit-backdrop-filter: blur( 5px );
+  /* box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.25); */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
-.morphismDark{
-background: rgba(0, 0, 0, 13%);
-backdrop-filter: blur(31.2%);
--webkit-backdrop-filter: blur(31.2%);
-border: 1px solid rgba(0, 0, 0, 20%);
+.morphismDark {
+  background: rgba(0, 0, 0, 13%);
+  backdrop-filter: blur(31.2%);
+  -webkit-backdrop-filter: blur(31.2%);
+  border: 1px solid rgba(0, 0, 0, 20%);
 }
 
-.page-content{
+.page-content {
   padding-top: 4rem;
 }
-.swiper-pagination-bullet-active{
-  background-color: #32de8a!important;
+.swiper-pagination-bullet-active {
+  background-color: #0c8fd7 !important;
 }
-.swiper-button-prev::after, .swiper-button-next::after{
-  font-size: 1rem!important;
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 1rem !important;
 }
-.swiper-button-prev, .swiper-button-next{
-  color: #32de8a!important;
-  background-color: white!important;
-  border-radius: 100%!important;
-  padding: 1rem!important;
-  height: 30px!important;
-  width: 30px!important;
+.swiper-button-prev,
+.swiper-button-next {
+  color: #0c8fd7 !important;
+  background-color: white !important;
+  border-radius: 0% !important;
+  padding: 1rem !important;
+  height: 30px !important;
+  width: 30px !important;
 }
-.swiper-pagination-bullets{
+.swiper-pagination-bullets {
   background-color: white;
   border-radius: 15px;
   padding: 5px;
@@ -229,15 +244,14 @@ border: 1px solid rgba(0, 0, 0, 20%);
   .ruby-text {
     display: ruby-text;
   }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none; /* For Chrome, Safari, and Opera */
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none; /* For Internet Explorer and Edge */
-      scrollbar-width: none; /* For Firefox */
-    }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    scrollbar-width: none; /* For Firefox */
+  }
 }
-
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -250,7 +264,7 @@ border: 1px solid rgba(0, 0, 0, 20%);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #B8B8C2;
+  background: #b8b8c2;
   border-radius: 10px;
 }
 
@@ -258,13 +272,29 @@ border: 1px solid rgba(0, 0, 0, 20%);
   background: #828284;
 }
 
-select,input{
+select,
+input {
   -webkit-appearance: initial;
 }
 ::selection {
-  background-color: #E8BD3233;
+  background-color: #e8bd3233;
+}
+.search-page {
+  transform: translateY(100%);
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
 }
 
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 /* Loader CSS */
 @keyframes spin {
   0% {
@@ -299,27 +329,28 @@ select,input{
 }
 
 .required:after {
-  content:" *";
+  content: " *";
   color: red;
 }
-
-
-
 
 @keyframes spin-custom {
   0% {
     transform: scale(1) rotate(0);
   }
-  20%, 25% {
+  20%,
+  25% {
     transform: scale(1.3) rotate(90deg);
   }
-  45%, 50% {
+  45%,
+  50% {
     transform: scale(1) rotate(180deg);
   }
-  70%, 75% {
+  70%,
+  75% {
     transform: scale(1.3) rotate(270deg);
   }
-  95%, 100% {
+  95%,
+  100% {
     transform: scale(1) rotate(360deg);
   }
 }

@@ -16,6 +16,7 @@
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.0.1",
     "@sanity/client": "^6.21.3",
+    "@sanity/image-url": "^1.1.0",
     "@tanstack/react-query": "^5.51.9",
     "axios": "^1.6.8",
     "calendar-link": "^2.6.0",
@@ -35,7 +36,7 @@
     "react-router-dom": "^6.20.1",
     "react-share": "^5.1.0",
     "redux-persist": "^6.0.0",
-    "swiper": "^11.1.15"
+    "swiper": "^11.2.6"
   },
   "devDependencies": {
     "@iconify/react": "^5.0.2",

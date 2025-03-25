@@ -1,147 +1,187 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";
-import { BiSolidSearch } from "react-icons/bi";
-import { PiSmileySadThin } from "react-icons/pi";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ThemeBtn from "../components/ThemeBtn";
 import useTheme from "../contexts/theme";
-import useProducts from "../hooks/useProducts";
-import logo from '../assets/t3sports.png';
-import logo2 from '../assets/t3sports_dark.png';
+import logo from "../assets/t3sports.png";
+import logo2 from "../assets/t3sports_dark.png";
+import { FiSearch, FiShoppingCart, FiHelpCircle } from "react-icons/fi";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { MdArrowForwardIos } from "react-icons/md";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { RxCross2 } from "react-icons/rx";
+import useCategory from "../hooks/useCategory";
+import NavbarSearch from "./NavbarSearch";
+import { client } from "../utils/sanity/client";
 
 const Navbar = () => {
   const { themeMode } = useTheme();
-  const searchRef = useRef(null);
-  const { products } = useProducts();
-  const [searchText, setSearchText] = useState("");
-  const [searchOpen, setSearchOpen] = useState(false);
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [navOpen, setNavOpen] = useState(false);
+  const { categories } = useCategory();
+  const [showSearchPage, setShowSearchPage] = useState(false);
+  const renderCategories = (categories, depth = 0) => {
+    return categories.map((category) => (
+      <div key={category._id} className="relative w-full h-full">
+        <Link
+          to={`/category/${category._id}`}
+          onClick={() => {
+            setActiveMenu(null);
+            setNavOpen(false);
+          }}
+          className={`block px-4 py-1 text-white dark:text-black hover:text-[#0C8FD7] dark:hover:text-[#0C8FD7] rounded-md ${
+            depth === 0
+              ? "text-lg font-bold md:pt-6 pt-4"
+              : depth === 1
+                ? "text-base "
+                : depth === 2
+                  ? "text-sm"
+                  : "text-xs"
+          }`}
+        >
+          {category.title}
+        </Link>
 
-  const toggleSearchBar = () => {
-    setSearchOpen(!searchOpen);
+        {/* Recursively Render Children */}
+        {category.children && category.children.length > 0 && (
+          <div className="w-[100%] bg-black dark:bg-white px-2 py-0 gap-2 group-hover:block">
+            {renderCategories(category.children, depth + 1)}
+          </div>
+        )}
+      </div>
+    ));
   };
+  const [offers, setOffers] = useState([]);
 
   useEffect(() => {
-    const closeSearchBar = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setSearchOpen(false);
-        setSearchText("");
-      }
-    };
-
-    document.addEventListener("click", closeSearchBar);
-    return () => {
-      document.removeEventListener("click", closeSearchBar);
-    };
-  }, [searchRef]);
-
-  const handleSearchChange = (e) => {
-    setSearchText(e.target.value);
-  };
-
-  const filteredProducts = products
-    ? products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchText.toLowerCase()) ||
-        product.subcategory.toLowerCase().includes(searchText.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchText.toLowerCase())
-    )
-    : [];
-
+    client.fetch(`*[_type == "offers"]`).then((data) => setOffers(data));
+  }, []);
   return (
-    <nav className="p-2 py-4 bg-transparent fixed top-0 w-full z-40 backdrop-blur-sm">
-      <div className="px-2 md:px-12 py-4 flex justify-center items-center">
-        {/* Logo */}
-        <div className="">
-          <Link to="/">
+    <>
+      {showSearchPage && <NavbarSearch setShowSearchPage={setShowSearchPage} />}
+
+      <div className="bg-black w-full py-2 hidden lg:block">
+        <div className="bg-red-700 text-white text-xs md:text-sm py-2 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-6 px-4 text-center">
+          {offers.map((offer, index) => (
+            <div key={index} className="flex items-center gap-2">
+              {offer.link ? (
+                <a
+                  href={offer.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  {offer.text}
+                </a>
+              ) : (
+                <span>{offer.text}</span>
+              )}
+              {index !== offers.length - 1 && (
+                <span className="hidden md:block h-4 w-[1px] bg-gray-300"></span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div
+        className={`bg-white dark:bg-black ${navOpen && "max-md:fixed max-md:z-[100] max-md:w-full"}`}
+      >
+        <header className="flex w-full items-center justify-between p-4 border-b border-t border-gray-200 dark:border-gray-700">
+          {!navOpen ? (
+            <GiHamburgerMenu
+              className="md:hidden text-3xl dark:text-white text-black cursor-pointer "
+              onClick={() => setNavOpen(!navOpen)}
+            />
+          ) : (
+            <RxCross2
+              className="md:hidden text-3xl dark:text-white text-black cursor-pointer "
+              onClick={() => setNavOpen(!navOpen)}
+            />
+          )}
+
+          <Link to={"/"}>
             <img
-              src={isHomePage ? logo : logo2}
-              width={120}
-              alt="logo"
-              className="mix-blend-difference"
+              src={themeMode === "dark" ? logo : logo2}
+              alt="Logo"
+              width={150}
+              height={40}
+              className="md:w-[150px] sm:w-[140px] w-[120px]"
             />
           </Link>
-        </div>
-
-        {/* Items based on search */}
-        {/* {searchOpen && searchText !== "" && (
-          <div className="flex flex-col border border-black dark:border-primary no-scrollbar absolute top-20 md:w-3/4 w-11/12 -translate-x-1/2 left-1/2 overflow-y-auto z-50 rounded-md max-h-[60vh]">
-            {filteredProducts.length === 0 ? (
-              <div className="bg-white dark:bg-darkPrimary p-4 text-black dark:text-primary rounded-md">
-                <p className="text-center flex flex-col justify-center items-center gap-4">
-                  <PiSmileySadThin size={100} /> Sorry, we couldn't find the product you're looking for!
-                </p>
-              </div>
-            ) : (
-              <div className="bg-white dark:bg-darkPrimary p-4 text-black dark:text-white rounded-md">
-                <p className="text-xs my-4">Search Results</p>
-                <div className="flex flex-col md:flex-row gap-2">
-                  {filteredProducts.map((product) => (
-                    <div
-                      key={product._id}
-                      className="bg-white relative dark:bg-darkPrimary flex flex-col w-full md:w-1/3 gap-2 text-black dark:text-white hover:bg-black hover:text-white rounded-md p-2"
-                    >
-                      <img
-                        className="w-full h-auto aspect-square object-cover rounded-md"
-                        src={product.image}
-                        alt={product.name}
-                      />
-                      <Link to={`product/${product._id}`}>
-                        <h2 className="text-sm md:text-lg line-clamp-1 w-full">
-                          {product.name}
-                        </h2>
-                        <hr />
-                        <p className="text-xs mt-2 line-clamp-3">
-                          {product.description}
-                        </p>
-                        <div className="flex items-center justify-between">
-                          <p className="text-xs mt-2">
-                            ${product.price}
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )} */}
-        {/* 
-        <div className="flex gap-2 row-start-1 col-start-2 justify-end">
-          <div className="flex justify-center w-fit items-center md:flex-row flex-col md:gap-0 gap-4 ">
+          <div className="flex items-center justify-end w-fit md:gap-4 gap-2">
             <div
-              className="flex relative items-center rounded-md w-fit md:w-full"
-              ref={searchRef}
+              className="flex items-center w-fit cursor-pointer"
+              onClick={() => setShowSearchPage(!showSearchPage)}
             >
-              <input
-                type="text"
-                name="search"
-                id="search"
-                placeholder="Search"
-                className="text-xs md:text-sm block flex-1 focus:outline-primary dark:focus:outline-primary rounded-md py-3 pl-4 md:placeholder:text-black bg-transparent backdrop-blur-md placeholder:text-black placeholder:dark:text-white placeholder:text-xs focus:right-0 font-poppins sm:text-sm sm:loading-6"
-                value={searchText}
-                onChange={handleSearchChange}
-                onClick={toggleSearchBar}
-              />
-              <div
-                className="absolute p-2 rounded-md cursor-pointer right-0 mr-2 dark:text-white text-black"
-                onClick={() => (searchText ? setSearchText("") : toggleSearchBar())}
+              <FiSearch className="dark:text-white md:font-normal md:text-xl text-2xl font-bold " />
+            </div>
+
+            <div className="flex items-center md:gap-4 gap-1">
+              <Link
+                to={"/contact-us"}
+                className="flex items-center gap-2 cursor-pointer"
               >
-                {searchText ? (
-                  <AiOutlineClose size={15} />
-                ) : (
-                  <BiSolidSearch size={15} />
-                )}
-              </div>
+                <p className="dark:text-white text-black md:block hidden ">
+                  Support
+                </p>
+                <FiHelpCircle className="text-2xl text-gray-700 dark:text-gray-300 cursor-pointer" />
+              </Link>
+              <FiShoppingCart className="text-2xl text-gray-700 dark:text-gray-300 cursor-pointer" />
+              <ThemeBtn />
             </div>
           </div>
-          <ThemeBtn />
-        </div> */}
+        </header>
+        <nav
+          className={`md:relative  md:h-fit h-screen border-b border-gray-200 dark:border-b-[#0C8FD7] ${navOpen ? "relative max-h-[calc(100vh_-_78px)] overflow-y-auto w-full " : "absolute md:left-0 left-[-100%]"}`}
+          onMouseLeave={() => setActiveMenu(null)}
+        >
+          <div className="flex px-4 md:space-x-8 py-4 max-w-full md:overflow-x-auto md:flex-row flex-col">
+            {categories.map((category) => (
+              <div
+                key={category._id}
+                className="group"
+                onMouseEnter={() =>
+                  window.innerWidth > 768 && setActiveMenu(category._id)
+                }
+                onClick={() => {
+                  console.log(activeMenu, category._id);
+                  window.innerWidth <= 768 &&
+                    setActiveMenu(
+                      category._id != null && category._id == activeMenu
+                        ? null
+                        : category._id
+                    );
+                }}
+              >
+                <div
+                  className="text-gray-700 cursor-pointer md:w-fit w-full dark:text-gray-300 hover:text-[#0C8FD7] text-start py-2 font-medium relative 
+                  after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:hidden md:after:block md:after:h-px 
+                  after:bg-[#0C8FD7] hover:after:w-full after:transition-all whitespace-nowrap after:duration-500 flex items-center md:justify-start justify-between gap-1"
+                >
+                  <p>{category.title}</p>
+                  {category.children && category.children.length > 0 && (
+                    <>
+                      <IoMdArrowDropdown className="md:block hidden" />
+                      <MdArrowForwardIos className="md:hidden block" />
+                    </>
+                  )}
+                </div>
+                {category.children &&
+                  category.children.length > 0 &&
+                  activeMenu === category._id && (
+                    <div
+                      className={`md:absolute top-full mt-[1px] z-[10] left-0 w-[100%] bg-black dark:bg-white border-t shadow-lg p-2 ${
+                        activeMenu === category._id ? "block" : "hidden"
+                      } `}
+                    >
+                      {renderCategories(category.children)}
+                    </div>
+                  )}
+              </div>
+            ))}
+          </div>
+        </nav>
       </div>
-    </nav>
+    </>
   );
 };
 
