@@ -4,7 +4,6 @@ import useProducts from "../hooks/useProducts";
 const AllCategory = () => {
   const [productsByCategory, setProductsByCategory] = useState({});
   const { products } = useProducts();
-  console.log(products);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -32,7 +31,7 @@ const AllCategory = () => {
           <h2 className="text-3xl font-bold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600">
             {category}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4 gap-2">
             {products.map((product, idx) => (
               <ProductCard product={product} key={idx} />
             ))}
