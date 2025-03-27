@@ -74,6 +74,14 @@ function Footer() {
           <div>
             <h4 className="text-md font-medium ">Help</h4>
             <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1"}>
+              <a
+                href="https://odrtrk.live"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
+              >
+                Track your order
+              </a>
               <Link
                 to="/contact-support"
                 className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"

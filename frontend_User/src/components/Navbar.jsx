@@ -59,10 +59,10 @@ const Navbar = () => {
     <>
       {showSearchPage && <NavbarSearch setShowSearchPage={setShowSearchPage} />}
 
-      <div className="bg-black w-full py-2 hidden lg:block">
-        <div className="bg-red-700 text-white text-xs md:text-sm py-2 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-6 px-4 text-center">
+      <div className="bg-black w-full py-2 max-w-[100vw] lg:block">
+        <div className="bg-red-700 text-white text-xs md:text-sm py-2 flex md:flex-nowrap flex-wrap md:gap-4 gap-2 flex-row justify-center items-center md:space-y-0 text-center">
           {offers.map((offer, index) => (
-            <div key={index} className="flex items-center gap-2">
+            <div key={index} className="flex items-center md:gap-4 gap-2">
               {offer.link ? (
                 <a
                   href={offer.link}
@@ -76,24 +76,24 @@ const Navbar = () => {
                 <span>{offer.text}</span>
               )}
               {index !== offers.length - 1 && (
-                <span className="hidden md:block h-4 w-[1px] bg-gray-300"></span>
+                <span className="block h-4 w-[1px] bg-gray-300"></span>
               )}
             </div>
           ))}
         </div>
       </div>
       <div
-        className={`bg-white dark:bg-black ${navOpen && "max-md:fixed max-md:z-[100] max-md:w-full"}`}
+        className={`bg-white dark:bg-black ${navOpen && "max-md:fixed max-md:z-[100] h-screen top-0 max-md:w-full"}`}
       >
         <header className="flex w-full items-center justify-between p-4 border-b border-t border-gray-200 dark:border-gray-700">
           {!navOpen ? (
             <GiHamburgerMenu
-              className="md:hidden text-3xl dark:text-white text-black cursor-pointer "
+              className="md:hidden sm:text-3xl text-xl dark:text-white text-black cursor-pointer "
               onClick={() => setNavOpen(!navOpen)}
             />
           ) : (
             <RxCross2
-              className="md:hidden text-3xl dark:text-white text-black cursor-pointer "
+              className="md:hidden sm:text-3xl text-xl dark:text-white text-black cursor-pointer "
               onClick={() => setNavOpen(!navOpen)}
             />
           )}
@@ -104,7 +104,7 @@ const Navbar = () => {
               alt="Logo"
               width={150}
               height={40}
-              className="md:w-[150px] sm:w-[140px] w-[120px]"
+              className="md:w-[150px] sm:max-w-[unset] w-[160px] sm:w-[140px] "
             />
           </Link>
           <div className="flex items-center justify-end w-fit md:gap-4 gap-2">
@@ -112,7 +112,7 @@ const Navbar = () => {
               className="flex items-center w-fit cursor-pointer"
               onClick={() => setShowSearchPage(!showSearchPage)}
             >
-              <FiSearch className="dark:text-white md:font-normal md:text-xl text-2xl font-bold " />
+              <FiSearch className="dark:text-white md:font-normal md:text-xl text-xl font-bold " />
             </div>
 
             <div className="flex items-center md:gap-4 gap-1">
@@ -123,15 +123,14 @@ const Navbar = () => {
                 <p className="dark:text-white text-black md:block hidden ">
                   Support
                 </p>
-                <FiHelpCircle className="text-2xl text-gray-700 dark:text-gray-300 cursor-pointer" />
+                <FiHelpCircle className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 cursor-pointer" />
               </Link>
-              <FiShoppingCart className="text-2xl text-gray-700 dark:text-gray-300 cursor-pointer" />
               <ThemeBtn />
             </div>
           </div>
         </header>
         <nav
-          className={`md:relative  md:h-fit h-screen border-b border-gray-200 dark:border-b-[#0C8FD7] ${navOpen ? "relative max-h-[calc(100vh_-_78px)] overflow-y-auto w-full " : "absolute md:left-0 left-[-100%]"}`}
+          className={`md:relative  md:h-fit h-screen border-b border-gray-200 dark:border-b-[#0C8FD7] ${navOpen ? "relative max-h-[calc(100vh_-_61px)] overflow-y-auto w-full " : "absolute md:left-0 left-[-100%]"}`}
           onMouseLeave={() => setActiveMenu(null)}
         >
           <div className="flex px-4 md:space-x-8 py-4 max-w-full md:overflow-x-auto md:flex-row flex-col">
@@ -143,7 +142,6 @@ const Navbar = () => {
                   window.innerWidth > 768 && setActiveMenu(category._id)
                 }
                 onClick={() => {
-                  console.log(activeMenu, category._id);
                   window.innerWidth <= 768 &&
                     setActiveMenu(
                       category._id != null && category._id == activeMenu
@@ -152,19 +150,40 @@ const Navbar = () => {
                     );
                 }}
               >
-                <div
-                  className="text-gray-700 cursor-pointer md:w-fit w-full dark:text-gray-300 hover:text-[#0C8FD7] text-start py-2 font-medium relative 
+                {category.children.length > 0 ? (
+                  <div
+                    className="text-gray-700 cursor-pointer md:w-fit w-full dark:text-gray-300 hover:text-[#0C8FD7] text-start py-2 font-medium relative 
                   after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:hidden md:after:block md:after:h-px 
                   after:bg-[#0C8FD7] hover:after:w-full after:transition-all whitespace-nowrap after:duration-500 flex items-center md:justify-start justify-between gap-1"
-                >
-                  <p>{category.title}</p>
-                  {category.children && category.children.length > 0 && (
-                    <>
-                      <IoMdArrowDropdown className="md:block hidden" />
-                      <MdArrowForwardIos className="md:hidden block" />
-                    </>
-                  )}
-                </div>
+                  >
+                    <p>{category.title}</p>
+                    {category.children && category.children.length > 0 && (
+                      <>
+                        <IoMdArrowDropdown className="md:block hidden" />
+                        <MdArrowForwardIos className="md:hidden block" />
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={`/category/${category._id}`}
+                    onClick={() => {
+                      setActiveMenu(null);
+                      setNavOpen(false);
+                    }}
+                    className="text-gray-700 cursor-pointer md:w-fit w-full dark:text-gray-300 hover:text-[#0C8FD7] text-start py-2 font-medium relative 
+                  after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:hidden md:after:block md:after:h-px 
+                  after:bg-[#0C8FD7] hover:after:w-full after:transition-all whitespace-nowrap after:duration-500 flex items-center md:justify-start justify-between gap-1"
+                  >
+                    <p>{category.title}</p>
+                    {category.children && category.children.length > 0 && (
+                      <>
+                        <IoMdArrowDropdown className="md:block hidden" />
+                        <MdArrowForwardIos className="md:hidden block" />
+                      </>
+                    )}
+                  </Link>
+                )}
                 {category.children &&
                   category.children.length > 0 &&
                   activeMenu === category._id && (

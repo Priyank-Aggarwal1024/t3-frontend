@@ -4,7 +4,7 @@ import NoDataFound from "./NoDataFound";
 import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 
-const SearchPage = () => {
+const SearchPage = ({ setShowSearchPage }) => {
   const { products, loading, error } = useProducts();
   const [query, setQuery] = useState("");
 
@@ -15,17 +15,21 @@ const SearchPage = () => {
   return (
     <div className="min-h-screen px-4 pb-6 bg-white relative text-black dark:bg-black dark:text-white">
       <div className="max-w-2xl mx-auto sticky sm:pt-6 pb-1 pt-12 top-0 bg-white dark:bg-black z-[2]">
-        <input
-          type="text"
-          placeholder="Search for products..."
-          className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-100 dark:bg-white text-black dark:text-black outline-none"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <RxCross2
-          className="text-black text-xl absolute right-5 top-[50%] translate-x-[-50%] cursor-pointer"
-          onClick={() => setQuery("")}
-        />
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-100 dark:bg-white text-black dark:text-black outline-none"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {query && (
+            <RxCross2
+              className="text-black text-xl absolute right-5 top-[50%] translate-y-[-50%] cursor-pointer"
+              onClick={() => setQuery("")}
+            />
+          )}
+        </div>
       </div>
       {loading && (
         <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
@@ -73,6 +77,7 @@ const SearchPage = () => {
                 </p>
                 <Link
                   to={`/product/${product._id}`}
+                  onClick={() => setShowSearchPage && setShowSearchPage(false)}
                   className="mt-3 w-full sm:w-auto text-center block  bg-[#0C8FD7] text-white px-6 py-2 rounded-md hover:opacity-80"
                 >
                   Buy Now

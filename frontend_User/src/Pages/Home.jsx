@@ -54,7 +54,7 @@ const Home = () => {
       <div className="bg-white w-screen dark:bg-darkPrimary dark:text-white max-w-[100vw]">
         <ScrollRestoration />
         <Banner />
-        <div className="max-w-full flex flex-col xl:gap-24 lg:gap-20 gap-16 py-16">
+        <div className="max-w-full flex flex-col xl:gap-24 lg:gap-20 md:gap-16 sm:gap-12 gap-10 xl:py-16 md:py-12 py-10">
           <div className="w-full">
             <h2 className="xl:text-4xl text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black pb-6">
               Shop by Category

@@ -37,7 +37,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="w-screen relative max-w-screen md:h-[calc(100vh_-_202px)] h-[calc(100vh_-_78px)]">
+    <div className="w-screen relative max-w-screen md:h-[calc(100vh_-_202px)] h-[calc(100vh_-_133px)]">
       <button
         className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl dark:text-[#0C8FD7] z-[3]"
         onClick={() => swiper.current?.swiper?.slidePrev()}
@@ -76,7 +76,7 @@ const Banner = () => {
                     href={banner.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-3 text-white bg-transparent border rounded-lg shadow-md transition mr-12 mb-12"
+                    className="px-6 py-3 text-white bg-transparent backdrop-blur-xl border rounded-lg shadow-md transition md:mr-12 mr-4 md:mb-12 mb-8"
                   >
                     {banner.buttonText}
                   </a>

@@ -4,14 +4,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
+import { FaExternalLinkAlt } from "react-icons/fa";
+
 function ProductCard({ product }) {
   return (
-    <div className="border p-2 rounded-md shadow-lg dark:bg-black bg-white">
+    <div className="border sm:p-2 p-1 rounded-md shadow-lg max-w-full dark:bg-black bg-white product-small">
       <Swiper
         modules={[Navigation, Pagination]}
         loop={true}
         navigation
-        className="rounded-md bg-white"
+        className="rounded-md"
       >
         {product.images &&
           product.images.map((img, index) => (
@@ -19,14 +21,14 @@ function ProductCard({ product }) {
               <img
                 src={img}
                 alt={product.name}
-                className="w-full h-56 object-cover rounded-md"
+                className="w-full aspect-square bg-white object-fill rounded-md"
               />
             </SwiperSlide>
           ))}
       </Swiper>
-      <div className="text-center mt-1 flex flex-col w-full justify-between h-[calc(100%_-_230px)]">
-        <div className="w-full flex items-center gap-2 justify-between mt-2">
-          <h3 className="text-lg text-left font-semibold text-black dark:text-white">
+      <div className="text-center mt-1 flex flex-col w-full justify-between">
+        <div className="w-full flex sm:flex-row flex-col items-center gap-2 justify-between mt-2">
+          <h3 className="sm:text-lg text-sm text-center sm:text-left font-semibold text-black dark:text-white">
             {product.name}
           </h3>
           <div className="flex justify-end gap-2 ">
@@ -44,7 +46,7 @@ function ProductCard({ product }) {
             )}
           </div>
         </div>
-        <div className="w-full flex items-center justify-between">
+        <div className="w-full sm:flex hidden items-center justify-between">
           <p
             className={`text-sm font-semibold mt-1 ${
               product.stock > 0 ? "text-green-600" : "text-red-500"
@@ -62,6 +64,11 @@ function ProductCard({ product }) {
             disabled={product.stock === 0}
           >
             {product.stock > 0 ? "Shop Now" : "Sold Out"}
+          </Link>
+        </div>
+        <div className="sm:hidden flex justify-end items-center mt-auto">
+          <Link to={`/product/${product._id}`}>
+            <FaExternalLinkAlt className="text-md dark:text-white text-black" />
           </Link>
         </div>
       </div>

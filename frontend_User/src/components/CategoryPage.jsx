@@ -45,10 +45,12 @@ const CategoryPage = () => {
 
   return (
     <div className="dark:bg-black bg-white text-black dark:text-white mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold">{categoryName || "Category"}</h1>
+      <h2 className="xl:text-4xl text-left lg:text-3xl md:text-2xl text-xl dark:text-white text-black md:pb-6 pb-4">
+        {categoryName || "Category"}
+      </h2>
 
       {products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4 gap-2">
           {products.map((product, idx) => (
             <ProductCard product={product} key={idx} />
           ))}

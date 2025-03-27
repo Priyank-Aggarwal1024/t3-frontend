@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutSection = () => {
   return (
-    <div className="bg-white dark:bg-black text-black dark:text-white px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-8 md:py-12 text-center">
+    <div className="bg-white dark:bg-black text-black dark:text-white px-4 sm:px-6 md:px-8 lg:px-12 text-center">
       <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold dark:text-white text-black pb-4 sm:pb-6">
         ABOUT T3 SPORTS
       </h2>

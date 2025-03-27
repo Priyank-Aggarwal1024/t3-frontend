@@ -26,7 +26,7 @@ function BrandsMarquee({ windowWidth }) {
             src={windowWidth < 780 ? brand.smallImageUrl : brand.largeImageUrl}
             alt={brand.name}
             key={index}
-            className="md:h-[100px] md:aspect-[113/100] md:mx-4 mx-1 md:w-[113px] xs:w-[163px] xs:h-[50px] w-[108px] aspect-[326/100]"
+            className="aspect-[326/200] md:aspect-[113/100] md:mx-4 mx-1 md:w-[200px] xs:w-[163px]  w-[150px] "
           />
         ))}
       </Marquee>

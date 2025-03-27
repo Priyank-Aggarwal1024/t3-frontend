@@ -26,5 +26,13 @@ export default {
       to: [{type: 'category'}],
       description: 'Select a parent category if this is a subcategory',
     },
+    {
+      name: 'order',
+      title: 'Sort Order',
+      type: 'number',
+      description: 'Enter a number to determine the sorting order of categories',
+      validation: (Rule) => Rule.required().integer(),
+      initialValue: 0,
+    },
   ],
 }

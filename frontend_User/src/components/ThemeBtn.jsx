@@ -18,7 +18,7 @@ function ThemeBtn() {
       onClick={onChangeTheme}
     >
       {themeMode === "light" ? (
-        <div className="text-xs bg-lightSecondary dark:bg-black flex items-center gap-2 dark:text-white p-4 rounded-md">
+        <div className="text-xs bg-lightSecondary dark:bg-black flex items-center gap-2 dark:text-white sm:p-4 p-2 rounded-md">
           <FaSun className="" />
           <span className="sr-only">Switch to Dark Mode</span>
         </div>

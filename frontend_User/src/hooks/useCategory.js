@@ -31,7 +31,7 @@ const useCategory = () => {
     result.forEach((cat) => {
       cat.children.sort((a, b) => a.title.localeCompare(b.title));
     });
-
+    result.sort((a, b) => b.order - a.order);
     return result;
   }
   const fetchCategories = async () => {
@@ -41,6 +41,7 @@ const useCategory = () => {
     _id,
     title,
     slug,
+    order,
     description,
     "parent": parent->{
       _id,

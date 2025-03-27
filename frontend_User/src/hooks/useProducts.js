@@ -38,7 +38,6 @@ const useProducts = () => {
 
     fetchProducts();
   }, []);
-  console.log(products);
   return { products, isLoading, error };
 };
 

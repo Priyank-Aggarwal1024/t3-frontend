@@ -10,7 +10,7 @@ function NavbarSearch({ setShowSearchPage }) {
             className="sticky z-[20] top-4 ml-auto text-black dark:text-white xl:text-4xl text-3xl cursor-pointer"
             onClick={() => setShowSearchPage(false)}
           />
-          <SearchPage />
+          <SearchPage setShowSearchPage={setShowSearchPage} />
         </div>
       </div>
     </>

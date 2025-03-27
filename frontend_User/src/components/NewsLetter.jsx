@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { Autoplay } from "swiper/modules";
-import { FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaYoutube, FaShippingFast } from "react-icons/fa";
 import { client } from "../utils/sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 
@@ -66,6 +66,20 @@ const NewsLetter = () => {
             ))}
           </div>
         </div>
+      </div>
+      <div className="flex justify-center">
+        <a
+          href="https://odrtrk.live"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 bg-white text-blue-600 px-6 py-3 
+  rounded-full border-2 border-blue-500 hover:bg-blue-500 hover:text-white
+  transform hover:scale-105 transition-all duration-300 shadow-md
+  relative overflow-hidden group"
+        >
+          <FaShippingFast className="text-xl group-hover:animate-bounce" />
+          <span className="font-semibold">Track Your Order</span>
+        </a>
       </div>
     </div>
   );
