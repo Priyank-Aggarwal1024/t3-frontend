@@ -3,7 +3,7 @@ import React from "react";
 const AboutSection = () => {
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white px-4 sm:px-6 md:px-8 lg:px-12 sm:text-center text-left">
-      <h2 className="text-xl uppercase tracking-[-0.01em] sm:text-2xl md:text-3xl lg:text-4xl font-bold dark:text-white text-black pb-4 sm:pb-6">
+      <h2 className="text-lg uppercase tracking-[-0.01em] sm:text-xl md:text-2xl lg:text-3xl font-bold dark:text-white text-black pb-4 sm:pb-6">
         ABOUT T3 SPORTS
       </h2>
       <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-5xl mx-auto">
