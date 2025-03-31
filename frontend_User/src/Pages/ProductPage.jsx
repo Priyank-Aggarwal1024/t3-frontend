@@ -95,6 +95,25 @@ const ProductDetails = ({
             className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4"
             onClick={() => setShowSizeChart(false)}
           >
+            <button
+              className="absolute top-2 right-8 text-white hover:text-gray-300"
+              onClick={() => setShowSizeChart(false)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
             <div className="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center">
               <img
                 src={selectedProduct.sizeChart || noSizeChart}
