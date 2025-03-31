@@ -77,11 +77,11 @@ export default function Faq() {
 
   return (
     <div className="min-h-screen bg-white text-black dark:text-white dark:bg-black w-full md:p-6 p-4 md:pt-20 pt-20 max-w-full overflow-hidden">
-      <h1 className="text-3xl md:text-4xl font-bold text-[#0C8FD7] mb-6 w-full text-center ">
+      <h1 className="text-3xl md:text-4xl font-bold text-t3_blue mb-6 w-full text-center uppercase">
         Frequently Asked Questions
       </h1>
       <div className="flex flex-col md:gap-6 gap-4 max-w-[1024px] mx-auto lg:px-16 md:px-8 px-4 md:py-6 py-4 border md:rounded-2xl rounded-lg relative">
-        <div className="w-[400px] h-[400p] dark:block hidden rounded-full absolute blur-3xl right-0 top-0 mr-[-80px] mt-[-80px] animate-spin bg-gradient-to-l from-[#0C8FD7] from-[20%] to-[#0c90d78e] opacity-40 z-[0] "></div>
+        <div className="w-[400px] h-[400p] dark:block hidden rounded-full absolute blur-3xl right-0 top-0 mr-[-80px] mt-[-80px] animate-spin bg-gradient-to-l from-t3_blue from-[20%] to-[#0c90d78e] opacity-40 z-[0] "></div>
         <div className="w-full  relative z-[2]">
           {faqs.slice(0, 6).map((faq, index) => (
             <div key={index} className="border-b border-gray-300">
@@ -90,7 +90,7 @@ export default function Faq() {
                 className="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none"
               >
                 <span className="text-lg font-medium">{faq.question}</span>
-                <span className="text-[#0C8FD7] text-2xl">
+                <span className="text-t3_blue text-2xl">
                   {openIndex === index ? "−" : "+"}
                 </span>
               </button>
@@ -114,7 +114,7 @@ export default function Faq() {
                 className="w-full text-left px-4 py-3 flex justify-between items-center focus:outline-none"
               >
                 <span className="text-lg font-medium">{faq.question}</span>
-                <span className="text-[#0C8FD7] text-2xl">
+                <span className="text-t3_blue text-2xl">
                   {openIndex === index + 6 ? "−" : "+"}
                 </span>
               </button>

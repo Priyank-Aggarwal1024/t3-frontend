@@ -7,7 +7,7 @@ import product from './product'
 import services from './services'
 import shopByCategory from './shopByCategory'
 import topSelling from './topSelling'
-
+import contact from './contact'
 export const schemaTypes = [
   category,
   product,
@@ -18,4 +18,5 @@ export const schemaTypes = [
   services,
   newsletter,
   offer,
+  contact,
 ]

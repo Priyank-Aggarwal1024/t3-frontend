@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollRestoration } from "react-router-dom";
-
+import { client } from "../utils/sanity/client";
+import imageUrlBuilder from "@sanity/image-url";
+const builder = imageUrlBuilder(client);
 const About = () => {
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await client.fetch('*[_type == "contact"][0]{image}');
+      if (data?.image?.asset?._ref) {
+        const imageUrl = builder.image(data.image.asset._ref).url();
+        setImage(imageUrl);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <div className="bg-white pb-4 text-black dark:text-white dark:bg-darkPrimary px-4 md:px-12 lg:py-12 sm:py-10 py-6">
       <ScrollRestoration />
-      <div className="bg-white dark:bg-black text-black dark:text-white px-4 sm:px-6 md:px-8 lg:px-12 text-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold dark:text-white text-black pb-4 sm:pb-6">
+      <div className="bg-white dark:bg-black text-black dark:text-white px-4 sm:px-6 md:px-8 lg:px-12 sm:text-center text-left">
+        {image && (
+          <img
+            src={image}
+            alt="T3 About"
+            className="w-full lg:h-[300px] sm:h-[240px] h-48 max-w-6xl mx-auto lg:mb-10 pb-4"
+          />
+        )}
+        <h2 className="text-xl uppercase tracking-[-0.01em] sm:text-2xl md:text-3xl lg:text-4xl font-bold dark:text-white text-black pb-4 sm:pb-6">
           ABOUT T3 SPORTS
         </h2>
         <p className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-5xl mx-auto">
@@ -19,7 +40,7 @@ const About = () => {
           Sonic Sports, Alkali, Fischer Hockey, Tour, Warrior, and Ace Sports
           etc.
         </p>
-        <p className="mt-4 text-base sm:text-lg md:text-xl text-[#0C8FD7] dark:text-[#0C8FD7] max-w-5xl mx-auto">
+        <p className="mt-4 text-base sm:text-lg md:text-xl text-t3_blue dark:text-t3_blue max-w-5xl mx-auto">
           In 2020, in response to increasing customer demand and to provide
           comprehensive solutions to sports enthusiasts, T3 Sports launched its
           own range of sports apparel. Today, we proudly serve customers

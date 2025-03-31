@@ -39,13 +39,13 @@ const Banner = () => {
   return (
     <div className="w-screen relative max-w-screen md:h-[calc(100vh_-_202px)] h-[calc(100vh_-_133px)]">
       <button
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl dark:text-[#0C8FD7] z-[3]"
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 text-4xl dark:text-t3_blue z-[3]"
         onClick={() => swiper.current?.swiper?.slidePrev()}
       >
         <GrPrevious />
       </button>
       <button
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 text-4xl dark:text-[#0C8FD7] z-[3]"
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 text-4xl dark:text-t3_blue z-[3]"
         onClick={() => swiper.current?.swiper?.slideNext()}
       >
         <GrNext />
@@ -68,9 +68,16 @@ const Banner = () => {
                     ? banner.small?.asset?.url
                     : banner.large?.asset?.url
                 }
-                className="w-full h-full"
+                className="w-full h-full cursor-auto"
               />
-              <div className="w-full absolute  top-0 z-[2] h-full flex items-end justify-end bg-black bg-opacity-0">
+              <div
+                className="w-full absolute cursor-pointer top-0 z-[2] h-full flex items-center justify-center bg-black bg-opacity-0"
+                onClick={() => {
+                  if (banner.link) {
+                    window.open(banner.link, "_blank");
+                  }
+                }}
+              >
                 {banner.buttonText && banner.link && (
                   <a
                     href={banner.link}

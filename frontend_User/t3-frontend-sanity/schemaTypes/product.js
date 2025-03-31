@@ -137,5 +137,11 @@ export default {
       type: 'number',
       initialValue: 149,
     },
+    {
+      name: 'productCode',
+      title: 'Product Code',
+      type: 'string',
+      description: 'Automatically generated unique product code',
+    },
   ],
 }

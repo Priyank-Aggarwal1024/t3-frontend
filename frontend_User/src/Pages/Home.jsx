@@ -37,6 +37,7 @@ const Home = () => {
 
     fetchShopByCategory();
   }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -53,15 +54,16 @@ const Home = () => {
     <>
       <div className="bg-white w-screen dark:bg-darkPrimary dark:text-white max-w-[100vw]">
         <ScrollRestoration />
+
         <Banner />
         <div className="max-w-full flex flex-col xl:gap-24 lg:gap-20 md:gap-16 sm:gap-12 gap-10 xl:py-16 md:py-12 py-10">
           <div className="w-full">
-            <h2 className="xl:text-4xl text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black pb-6">
+            <h2 className="xl:text-4xl uppercase tracking-[-0.01em] text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black pb-6">
               Shop by Category
             </h2>
 
             {shopByCategory.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4 gap-2">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4 xs:gap-2 gap-1">
                 {shopByCategory.map((category, idx) => (
                   <div
                     key={idx}
@@ -73,18 +75,18 @@ const Home = () => {
                     }}
                   >
                     {/* Responsive Aspect Ratio for Better Adaptability */}
-                    <div className="absolute inset-0 bg-black/60"></div>
+                    <div className="absolute inset-0 bg-black/80"></div>
 
-                    <div className="relative z-[4] flex flex-col gap-3 items-center text-center p-4">
+                    <div className="relative z-[4] flex flex-col sm:gap-3 gap-2 items-center text-center sm:p-4 p-2">
                       {/* Title - Adjusts on Small Screens */}
-                      <h2 className="mb-1 text-sm sm:text-lg md:text-xl lg:text-2xl font-poppins">
+                      <h2 className="sm:mb-1 uppercase tracking-[-0.01em] text-lg md:text-xl lg:text-2xl font-poppins font-bold">
                         {category.title}
                       </h2>
 
                       {/* CTA Button */}
                       <Link
                         to={`/shop-by-category/${category._id}`}
-                        className="bg-yellow-500 text-black px-3 sm:px-4 py-2 text-xs sm:text-sm md:text-base font-bold rounded-md hover:bg-yellow-600 transition-all duration-300"
+                        className="bg-t3_blue text-white px-2 sm:px-4 sm:py-2 py-1 text-xs sm:text-sm md:text-base font-bold rounded-md hover:bg-[#44a5da] transition-all duration-300"
                       >
                         Shop Now
                       </Link>

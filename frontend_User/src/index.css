@@ -12,7 +12,8 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #f6f6f6 !important;
+  /* background-color: #f6f6f6 !important; */
+  background-color: #fff;
 }
 #root {
   max-width: 100vw;
@@ -234,6 +235,11 @@ li {
   padding: 1rem !important;
   height: 30px !important;
   width: 30px !important;
+}
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  opacity: 0.5;
+  z-index: 100;
 }
 .swiper-pagination-bullets {
   background-color: white;

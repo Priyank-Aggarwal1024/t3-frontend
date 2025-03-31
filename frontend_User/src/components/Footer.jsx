@@ -1,18 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/t3sports_dark.png";
+import logo from "../assets/t3sports.png";
 
 function Footer() {
   return (
     <footer className={`bg-white text-black z-20 w-full`}>
-      <div className=" sm:p-8 p-4 bg-white flex w-full justify-between items-baseline lg:flex-row flex-col gap-6">
-        <div className="my-4 flex items-center">
-          <img src={logo} width={350} alt="" />
+      <div className=" sm:p-8 p-4 bg-white flex w-full justify-between items-start lg:flex-row flex-col gap-6">
+        <div className="flex items-center">
+          <img
+            src={logo}
+            width={280}
+            alt=""
+            className="mix-blend-difference lg:w-[280px] sm:w-[240px] w-48"
+          />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left lg:w-1/2 w-full">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left xl:w-[70%] lg:w-[60%] w-full">
           <div>
-            <h4 className="text-md font-medium ">Our Websites</h4>
-            <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1 "}>
+            <h4 className="text-md font-medium uppercase tracking-[-0.01em]">
+              Our Websites
+            </h4>
+            <div
+              className={
+                "mt-4 lg:mb-0 text-xs lg:text-sm flex flex-col space-y-1 "
+              }
+            >
               <Link
                 className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
                 to={"/"}
@@ -41,8 +52,14 @@ function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="text-md font-medium ">About us</h4>
-            <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1 "}>
+            <h4 className="text-md font-medium uppercase tracking-[-0.01em]">
+              About us
+            </h4>
+            <div
+              className={
+                "mt-4 lg:mb-0 text-xs lg:text-sm flex flex-col space-y-1 "
+              }
+            >
               <Link
                 className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"
                 to={"/about"}
@@ -72,8 +89,14 @@ function Footer() {
           </div>
 
           <div>
-            <h4 className="text-md font-medium ">Help</h4>
-            <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1"}>
+            <h4 className="text-md font-medium uppercase tracking-[-0.01em]">
+              Help
+            </h4>
+            <div
+              className={
+                "mt-4 lg:mb-0 text-xs lg:text-sm flex flex-col space-y-1"
+              }
+            >
               <a
                 href="https://odrtrk.live"
                 target="_blank"
@@ -97,8 +120,14 @@ function Footer() {
             </div>
           </div>
           <div>
-            <h4 className="text-md font-medium ">Privacy & Legal</h4>
-            <div className={"mt-4 lg:mb-0 text-xs flex flex-col space-y-1"}>
+            <h4 className="text-md font-medium uppercase tracking-[-0.01em]">
+              Privacy & Legal
+            </h4>
+            <div
+              className={
+                "mt-4 lg:mb-0 text-xs lg:text-sm flex flex-col space-y-1"
+              }
+            >
               <Link
                 to="/shipping-policy"
                 className="opacity-50 hover:text-primary hover:opacity-100 transition-all duration-300 ease-in-out"

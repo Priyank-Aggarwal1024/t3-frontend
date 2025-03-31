@@ -49,17 +49,17 @@ const CategoryProductsPage = () => {
 
   return (
     <div className="dark:bg-black bg-white mx-auto px-4 py-10">
-      <div className="text-center mb-8">
-        <h2 className="xl:text-4xl text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black pb-6">
+      <div className="text-center mb-8 max-w-6xl mx-auto">
+        <h2 className="xl:text-4xl text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black pb-6  uppercase tracking-[-0.01em]">
           {category.title}
         </h2>
         <img
           src={category.imageUrl}
           alt={category.title}
-          className="w-full h-96 object-cover rounded-md mt-4"
+          className="w-full h-96 object-fill  rounded-md mt-4"
         />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 max-w-6xl mx-auto w-full lg:grid-cols-4 sm:gap-4 gap-2 gap-y-4">
         {category.products.length > 0 ? (
           category.products.map((product) => <ProductCard product={product} />)
         ) : (

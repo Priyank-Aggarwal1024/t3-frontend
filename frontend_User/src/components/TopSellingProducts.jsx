@@ -22,7 +22,8 @@ const TopSellingProducts = () => {
             price,
             discount,
             stock,
-            "category": category->title
+            "category": category->title,
+            "productCode": productCode
           }
       }
     `);
@@ -36,13 +37,13 @@ const TopSellingProducts = () => {
     fetchTopSellingProducts();
   }, []);
   return (
-    <div className="max-w-7xl mx-auto px-4">
-      <h2 className="xl:text-4xl text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black md:pb-6 pb-4">
+    <div className="max-w-7xl mx-auto xs:px-4 px-2">
+      <h2 className="xl:text-4xl uppercase tracking-[-0.01em] text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black md:pb-6 pb-4">
         TOP SELLING PRODUCTS
       </h2>
 
       {products.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 max-w-6xl mx-auto w-full lg:grid-cols-4 sm:gap-4 gap-2 gap-y-4">
           {products.map((product, index) => (
             <ProductCard product={product} key={index} />
           ))}

@@ -4,7 +4,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { Autoplay } from "swiper/modules";
-import { FaInstagram, FaYoutube, FaShippingFast } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaYoutube,
+  FaLinkedin,
+  FaFacebook,
+  FaTwitter,
+  FaWhatsapp,
+  FaShippingFast,
+  FaLink,
+} from "react-icons/fa";
 import { client } from "../utils/sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 
@@ -51,17 +60,29 @@ const NewsLetter = () => {
 
       <div className="px-6 py-8 text-center flex flex-col md:flex-row items-center justify-between">
         <div className="mt-6 md:mt-0 mx-auto">
-          <h2 className="text-xl tracking-widest md:text-2xl font-bold">
-            SEE WHAT WE'RE UP TO:
-          </h2>
+          <p className="text-xl md:text-2xl font-bold ">SEE WHAT WE'RE UP TO</p>
           <div className="flex gap-4 justify-center mt-2">
             {data.socialLinks.map((link, index) => (
               <a
                 key={index}
                 href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-2xl text-black dark:text-white"
               >
-                {link.platform === "YouTube" ? <FaYoutube /> : <FaInstagram />}
+                {link.platform === "YouTube" ? (
+                  <FaYoutube />
+                ) : link.platform === "Instagram" ? (
+                  <FaInstagram />
+                ) : link.platform === "Facebook" ? (
+                  <FaFacebook />
+                ) : link.platform === "Twitter" ? (
+                  <FaTwitter />
+                ) : link.platform === "LinkedIn" ? (
+                  <FaLinkedin />
+                ) : (
+                  <FaLink />
+                )}
               </a>
             ))}
           </div>
@@ -72,8 +93,8 @@ const NewsLetter = () => {
           href="https://odrtrk.live"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 bg-white text-blue-600 px-6 py-3 
-  rounded-full border-2 border-blue-500 hover:bg-blue-500 hover:text-white
+          className="flex items-center gap-2 bg-t3_blue text-white px-6 py-3 
+  rounded-full
   transform hover:scale-105 transition-all duration-300 shadow-md
   relative overflow-hidden group"
         >

@@ -2,7 +2,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+import { FreeMode, Navigation, Pagination } from "swiper/modules";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollRestoration, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
@@ -29,14 +29,20 @@ const ProductDetails = ({
   const [showSizeChart, setShowSizeChart] = useState(false);
   return (
     <div className="w-full lg:w-1/2 flex flex-col">
-      <h2 className="text-2xl md:text-4xl font-bold uppercase">
-        {selectedProduct.name}
+      <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-normal flex items-center justify-between">
+        <span> {selectedProduct.name}</span>
+        <p className="text-sm font-medium block p-1 dark:bg-gray-700 bg-gray-200 rounded-md">
+          {selectedProduct.productCode}
+        </p>
       </h2>
+
       <div className="flex items-center gap-2 mt-4">
-        <p className="text-2xl font-semibold text-primary">₹{finalPrice} INR</p>
+        <p className="text-xl font-semibold dark:text-white text-black">
+          ₹{finalPrice}
+        </p>
         {selectedProduct.discount > 0 && (
           <p className="text-lg text-gray-500 line-through">
-            ₹{selectedProduct.price} INR
+            ₹{selectedProduct.price}
           </p>
         )}
         {selectedProduct.discount > 0 && (
@@ -46,7 +52,7 @@ const ProductDetails = ({
         )}
       </div>
       <p
-        className={`mt-2 text-lg font-medium ${selectedProduct.stock > 0 ? "text-green-600" : "text-red-600"}`}
+        className={`mt-2 text-lg font-medium ${selectedProduct.stock > 0 ? "text-green-300" : "text-red-300"}`}
       >
         {selectedProduct.stock > 0 ? "In Stock" : "Out of Stock"}
       </p>
@@ -80,7 +86,7 @@ const ProductDetails = ({
       <div className="mt-6">
         <button
           onClick={() => setShowSizeChart(true)}
-          className="text-primary hover:underline cursor-pointer"
+          className="text-white bg-t3_blue py-1 px-2 rounded-md hover:underline cursor-pointer"
         >
           Size Chart
         </button>
@@ -152,7 +158,7 @@ const ProductPage = () => {
           (prod) => prod.category === product.category && prod._id !== id
         ),
         ...products,
-      ].slice(0, 4);
+      ].slice(0, 6);
       setSuggestions(suggest);
     }
   }, [products, id]);
@@ -163,7 +169,7 @@ const ProductPage = () => {
   return (
     <>
       <div className="w-full h-full dark:bg-black bg-white">
-        <div className="bg-white dark:bg-black dark:text-white text-black min-h-screen flex flex-col lg:flex-row px-4 md:px-12 lg:pt-24 md:pt-16 pt-10 gap-10 pb-6">
+        <div className="bg-white dark:bg-black lg:max-w-6xl mx-auto dark:text-white text-black min-h-screen flex flex-col justify-center lg:flex-row px-4 md:px-12 lg:pt-16 md:pt-12 pt-10 gap-10 pb-6">
           <ScrollRestoration />
 
           {/* Image Gallery */}
@@ -175,17 +181,19 @@ const ProductPage = () => {
                 navigation
                 loop={true}
                 modules={[Navigation, Pagination]}
-                className="w-full"
+                className="w-full flex items-center justify-center"
                 ref={swiperRef}
                 onSlideChange={(swiper) => setImgInd(swiper.activeIndex)}
               >
                 {selectedProduct.images.map((image, index) => (
-                  <SwiperSlide key={index}>
-                    <img
-                      className="w-full h-[400px] sm:h-[500px] object-fill rounded-lg"
-                      src={image}
-                      alt={selectedProduct.name}
-                    />
+                  <SwiperSlide key={index} className="">
+                    <div className="w-full h-full flex items-center justify-center">
+                      <img
+                        className="lg:w-full aspect-square h-[325px] sm:h-[400px] md:h-[450px] object-fill rounded-lg"
+                        src={image}
+                        alt={selectedProduct.name}
+                      />
+                    </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -225,17 +233,44 @@ const ProductPage = () => {
             showFullDescription={showFullDescription}
           />
         </div>
-        <div className="xl:py-10 py-6 mx-auto px-4">
-          <h2 className="xl:text-4xl text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black md:pb-6 pb-4">
-            You may also like
+        <div className="xl:py-10 py-6 mx-auto xs:px-4 px-2">
+          <h2 className="xl:text-4xl uppercase tracking-[-0.01em] text-center lg:text-3xl md:text-2xl text-xl dark:text-white text-black md:pb-6 pb-4">
+            You might like
           </h2>
 
           {suggestions.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4 gap-2">
+            <Swiper
+              slidesPerView={5}
+              breakpoints={{
+                1280: {
+                  slidesPerView: 5,
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 10,
+                },
+                768: {
+                  slidesPerView: 3,
+                },
+                320: {
+                  slidesPerView: 2,
+                },
+                100: {
+                  spaceBetween: 2,
+                  slidesPerView: 1,
+                },
+              }}
+              navigation
+              loop={true}
+              modules={[Navigation, Pagination]}
+              className="max-w-6xl mx-auto"
+            >
               {suggestions.map((product, index) => (
-                <ProductCard product={product} key={index} />
+                <SwiperSlide className="" key={index}>
+                  <ProductCard product={product} key={index} />
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
           ) : (
             <NoDataFound text={"No products found"} />
           )}

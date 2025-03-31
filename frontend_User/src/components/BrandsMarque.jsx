@@ -19,14 +19,14 @@ function BrandsMarquee({ windowWidth }) {
     fetchBrands();
   }, []);
   return (
-    <div className="w-full max-w-full">
+    <div className="w-full max-w-full bg-pure_white">
       <Marquee speed={50} gradient={false} pauseOnHover>
         {brands.map((brand, index) => (
           <img
             src={windowWidth < 780 ? brand.smallImageUrl : brand.largeImageUrl}
             alt={brand.name}
             key={index}
-            className="aspect-[326/200] md:aspect-[113/100] md:mx-4 mx-1 md:w-[200px] xs:w-[163px]  w-[150px] "
+            className="aspect-[326/200] md:aspect-[200/100] md:mx-2 mix-blend-multiply mx-1 md:w-[200px] xs:w-[163px] w-[150px] "
           />
         ))}
       </Marquee>

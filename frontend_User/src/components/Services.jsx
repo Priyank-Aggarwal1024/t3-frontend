@@ -22,20 +22,19 @@ const ServicesSection = () => {
     fetchServices();
   }, []);
 
-  if (isLoading)
-    return <p className="text-center text-[#0C8FD7]">Loading...</p>;
+  if (isLoading) return <p className="text-center text-t3_blue">Loading...</p>;
   if (error)
     return <p className="text-center text-red-500">Failed to load services.</p>;
 
   return (
     <div
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:gap-3 gap-2 px-6 
-                    dark:bg-black text-white transition-all bg-white"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:px-6 px-4 
+                    dark:bg-black text-white transition-all bg-[white]"
     >
       {services.map((service, index) => (
         <div
           key={index}
-          className="border dark:border-gray-700 p-6 rounded-sm text-center shadow-md bg-black"
+          className="border dark:border-gray-700 p-6 rounded-sm text-center shadow-md dark:bg-black bg-t3_blue text-white"
         >
           <div className="flex justify-center mb-3">
             <img
@@ -44,15 +43,15 @@ const ServicesSection = () => {
               className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14"
             />
           </div>
-          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white">
+          <p className="text-base uppercase sm:text-lg md:text-xl font-semibold text-white">
             {service.title}
-          </h3>
-          <p className="mt-2 text-sm sm:text-base md:text-lg text-gray-400">
+          </p>
+          <p className="mt-1 text-xs sm:text-base md:text-lg text-pure_white leading-[1] md:leading-tight">
             {service.description}
           </p>
           <a
             href={service.link}
-            className="text-[#0C8FD7] font-bold mt-3 inline-block text-sm sm:text-base md:text-lg hover:underline"
+            className="bg-t3_blue py-1 px-2 rounded-md text-pure_white font-bold mt-3 inline-block text-xs sm:text-base md:text-lg hover:underline leading-[1] md:leading-tight"
           >
             Learn More
           </a>

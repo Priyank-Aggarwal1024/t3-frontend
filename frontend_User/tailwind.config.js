@@ -47,6 +47,8 @@ export default {
         lightSecondary: "#f2f2f2",
         darkSecondary: "#000",
         darkText: "#000",
+        pure_white: "#fff",
+        t3_blue: "#0C8FD7",
       },
       fontFamily: {
         poppins: ["Outfit", "sans-serif"],

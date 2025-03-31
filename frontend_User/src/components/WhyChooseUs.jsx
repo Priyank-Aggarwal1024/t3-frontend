@@ -39,7 +39,7 @@ export default function WhyChooseUs() {
   return (
     <div className="min-h-screen flex flex-col items-center pt-20 px-6 py-10 transition-colors duration-300 bg-white text-black dark:bg-black dark:text-white">
       <motion.h1
-        className="text-3xl md:text-4xl font-bold text-[#0C8FD7] mb-6"
+        className="text-3xl md:text-4xl font-bold text-t3_blue mb-6 uppercase tracking-[-0.01em]"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -56,15 +56,15 @@ export default function WhyChooseUs() {
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
             <div className="text-5xl">{feature.icon}</div>
-            <h3 className="text-xl font-semibold text-[#0C8FD7] mt-4">
+            <p className="text-xl font-semibold text-white mt-4">
               {feature.title}
-            </h3>
+            </p>
             <p className="text-lg mt-2">{feature.description}</p>
           </motion.div>
         ))}
       </div>
       <motion.div
-        className="mt-12 px-8 py-4 bg-[#0C8FD7] text-white text-xl font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 cursor-pointer"
+        className="mt-12 px-8 py-4 bg-t3_blue text-white text-xl font-bold rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 cursor-pointer"
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}

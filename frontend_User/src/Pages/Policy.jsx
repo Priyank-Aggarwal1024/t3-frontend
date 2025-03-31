@@ -10,7 +10,7 @@ const Policy = () => {
       </h1>
 
       <section className="mb-6">
-        <h2 className="text-xl font-semibold text-primary mb-[1rem]">
+        <h2 className="text-xl uppercase tracking-[-0.01em] font-semibold text-primary mb-[1rem]">
           Your Privacy Matters to Us
         </h2>
         <p className="mb-2 text-[14px]">

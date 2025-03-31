@@ -7,7 +7,7 @@ export default {
       name: 'text',
       title: 'Offer Text',
       type: 'string',
-      description: 'Main text for the offer (e.g., Free Shipping | $15 2-Day Over $75)',
+      description: 'Main text for the offer (e.g., Free Shipping | ₹15 2-Day Over ₹75)',
       validation: (Rule) => Rule.required(),
     },
     {

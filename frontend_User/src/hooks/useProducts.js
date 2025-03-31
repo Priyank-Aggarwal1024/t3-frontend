@@ -24,7 +24,8 @@ const useProducts = () => {
             discount,
             stock,
             "category": category->_id,
-            "categoryName": category->title
+            "categoryName": category->title,
+            "productCode": productCode
           }
       `;
         const data = await client.fetch(query);
