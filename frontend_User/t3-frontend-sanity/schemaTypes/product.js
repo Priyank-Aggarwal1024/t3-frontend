@@ -102,26 +102,18 @@ export default {
         },
       ],
       validation: (Rule) => Rule.min(1).error('Select at least one color'),
-      initialValue: [
-        {name: 'Black', hex: '#000000'},
-        {name: 'White', hex: '#FFFFFF'},
-        {name: 'Yellow', hex: '#FFFF00'},
-        {name: 'Red', hex: '#FF0000'},
-      ], // Default colors
     },
     {
       name: 'price',
       title: 'Price',
       type: 'number',
-      validation: (Rule) => Rule.required().min(0),
-      initialValue: 199, // Default price
     },
     {
       name: 'stock',
       title: 'Stock Quantity',
       type: 'number',
       validation: (Rule) => Rule.required().min(0),
-      initialValue: 2,
+      initialValue: 0,
     },
     {
       name: 'category',
@@ -135,7 +127,6 @@ export default {
       name: 'discount',
       title: 'Discount Price',
       type: 'number',
-      initialValue: 149,
     },
     {
       name: 'productCode',
