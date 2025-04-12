@@ -6,11 +6,12 @@ import "swiper/css/navigation";
 import { Link } from "react-router-dom";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-function ProductCard({ product }) {
+function ProductCard({ product, onClick }) {
   return (
     <Link
       to={`/product/${product._id}`}
       className="block sm:p-2 p-1 rounded-md max-w-full bg-transparent product-small"
+      onClick={onClick}
     >
       {product.images && product.images.length > 0 && (
         <div className="w-full bg-white dark:bg-black rounded-md">

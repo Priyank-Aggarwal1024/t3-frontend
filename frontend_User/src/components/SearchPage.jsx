@@ -45,7 +45,13 @@ const SearchPage = ({ setShowSearchPage }) => {
       {filteredProducts.length > 0 ? (
         <div className="mt-6 max-w-2xl mx-auto px-1 grid grid-cols-2 sm:gap-4 xs:gap-2 gap-1 gap-y-4">
           {filteredProducts.map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <ProductCard
+              key={product._id}
+              product={product}
+              onClick={() =>
+                setShowSearchPage ? setShowSearchPage(false) : null
+              }
+            />
           ))}
         </div>
       ) : (
