@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { client } from "../utils/sanity/client";
 const useProducts = () => {
   const [products, setProducts] = useState([]);
@@ -25,11 +24,14 @@ const useProducts = () => {
             stock,
             "category": category->_id,
             "categoryName": category->title,
-            "productCode": productCode
+            "productCode": productCode,
+            "sortOrder": sortOrder
           }
       `;
         const data = await client.fetch(query);
-        setProducts(data || []);
+        setProducts(
+          (data || []).sort((a, b) => (b.sortOrder || 0) - (a.sortOrder || 0))
+        );
       } catch (err) {
         setError(err);
       } finally {

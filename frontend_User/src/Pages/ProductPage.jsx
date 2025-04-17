@@ -1,8 +1,9 @@
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/zoom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Pagination } from "swiper/modules";
+import { FreeMode, Navigation, Pagination, Zoom } from "swiper/modules";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollRestoration, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
@@ -194,7 +195,7 @@ const ProductPage = () => {
           {/* Image Gallery */}
           <div className="w-full lg:w-1/2">
             <div className="relative rounded-lg">
-              <Swiper
+              {/* <Swiper
                 spaceBetween={10}
                 slidesPerView={1}
                 navigation
@@ -207,6 +208,29 @@ const ProductPage = () => {
                 {selectedProduct.images.map((image, index) => (
                   <SwiperSlide key={index} className="">
                     <div className="w-full h-full flex items-center justify-center">
+                      <img
+                        className="lg:w-full aspect-square h-[325px] sm:h-[400px] md:h-[450px] object-fill rounded-lg"
+                        src={image}
+                        alt={selectedProduct.name}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper> */}
+              <Swiper
+                spaceBetween={10}
+                slidesPerView={1}
+                navigation
+                loop={true}
+                zoom={true}
+                modules={[Navigation, Pagination, Zoom]}
+                className="w-full flex items-center justify-center"
+                ref={swiperRef}
+                onSlideChange={(swiper) => setImgInd(swiper.activeIndex)}
+              >
+                {selectedProduct.images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="swiper-zoom-container w-full h-full flex items-center justify-center">
                       <img
                         className="lg:w-full aspect-square h-[325px] sm:h-[400px] md:h-[450px] object-fill rounded-lg"
                         src={image}

@@ -28,7 +28,8 @@ const CategoryProductsPage = () => {
             price,
             discount,
             stock,
-            "category": category->_id
+            "category": category->_id,
+            "sortOrder": sortOrder
               }
             }`;
 
@@ -46,7 +47,6 @@ const CategoryProductsPage = () => {
 
   if (loading) return <p>Loading...</p>;
   if (!category) return <p>Category not found.</p>;
-
   return (
     <div className="dark:bg-black bg-white mx-auto px-4 py-10">
       <div className="text-center mb-8 max-w-6xl mx-auto">
@@ -61,7 +61,14 @@ const CategoryProductsPage = () => {
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 max-w-6xl mx-auto w-full lg:grid-cols-4 sm:gap-4 gap-2 gap-y-4">
         {category.products.length > 0 ? (
-          category.products.map((product) => <ProductCard product={product} />)
+          (category.products || [])
+            .sort((a, b) => (b.sortOrder || 0) - (a.sortOrder || 0))
+            .map((product) => (
+              <ProductCard
+                product={product}
+                key={`${product.name} ${product._id}`}
+              />
+            ))
         ) : (
           <NoDataFound text={"No products available in this category."} />
         )}

@@ -23,11 +23,16 @@ const TopSellingProducts = () => {
             discount,
             stock,
             "category": category->title,
-            "productCode": productCode
+            "productCode": productCode,
+            "sortOrder": sortOrder
           }
       }
     `);
-      setProducts(response.products);
+      setProducts(
+        (response.products || []).sort(
+          (a, b) => (b.sortOrder || 0) - (a.sortOrder || 0)
+        )
+      );
     } catch (error) {
       console.error("Error fetching top selling products:", error);
     }

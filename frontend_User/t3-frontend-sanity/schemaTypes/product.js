@@ -134,5 +134,12 @@ export default {
       type: 'string',
       description: 'Automatically generated unique product code',
     },
+    {
+      name: 'sortOrder',
+      title: 'Sort Order',
+      type: 'number',
+      description: 'Used to sort products in the category',
+      initialValue: 0,
+    },
   ],
 }
