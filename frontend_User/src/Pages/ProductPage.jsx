@@ -9,6 +9,7 @@ import { ScrollRestoration, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import useProducts from "../hooks/useProducts";
 import { FaWhatsapp } from "react-icons/fa";
+import { MdOutlineZoomIn } from "react-icons/md";
 import NoDataFound from "../components/NoDataFound";
 import noSizeChart from "../assets/no-image.png";
 import ProductCard from "../components/ProductCard";
@@ -53,7 +54,9 @@ const ProductDetails = ({
         )}
       </div>
       <p
-        className={`mt-2 text-lg font-medium ${selectedProduct.stock > 0 ? "text-green-300" : "text-red-300"}`}
+        className={`mt-2 text-lg font-medium ${
+          selectedProduct.stock > 0 ? "text-green-300" : "text-red-300"
+        }`}
       >
         {selectedProduct.stock > 0 ? "In Stock" : "Out of Stock"}
       </p>
@@ -137,7 +140,9 @@ const ProductDetails = ({
         <p className="text-sm text-gray-700 leading-relaxed mt-2 transition-all duration-300 dark:text-white">
           {showFullDescription
             ? selectedProduct.description
-            : `${selectedProduct.description.slice(0, 300)}${selectedProduct.description.length > 300 ? "..." : ""}`}
+            : `${selectedProduct.description.slice(0, 300)}${
+                selectedProduct.description.length > 300 ? "..." : ""
+              }`}
           {selectedProduct.description.length > 300 && (
             <span
               className="text-primary font-semibold cursor-pointer ml-1"
@@ -169,6 +174,7 @@ const ProductPage = () => {
   const [imgInd, setImgInd] = useState(0);
   const swiperRef = useRef(null);
   const [suggestions, setSuggestions] = useState([]);
+  const [isZoomed, setIsZoomed] = useState(false);
   useEffect(() => {
     if (products.length > 0) {
       const product = products.find((prod) => prod._id === id);
@@ -195,28 +201,6 @@ const ProductPage = () => {
           {/* Image Gallery */}
           <div className="w-full lg:w-1/2">
             <div className="relative rounded-lg">
-              {/* <Swiper
-                spaceBetween={10}
-                slidesPerView={1}
-                navigation
-                loop={true}
-                modules={[Navigation, Pagination]}
-                className="w-full flex items-center justify-center"
-                ref={swiperRef}
-                onSlideChange={(swiper) => setImgInd(swiper.activeIndex)}
-              >
-                {selectedProduct.images.map((image, index) => (
-                  <SwiperSlide key={index} className="">
-                    <div className="w-full h-full flex items-center justify-center">
-                      <img
-                        className="lg:w-full aspect-square h-[325px] sm:h-[400px] md:h-[450px] object-fill rounded-lg"
-                        src={image}
-                        alt={selectedProduct.name}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper> */}
               <Swiper
                 spaceBetween={10}
                 slidesPerView={1}
@@ -224,39 +208,83 @@ const ProductPage = () => {
                 loop={true}
                 zoom={true}
                 modules={[Navigation, Pagination, Zoom]}
-                className="w-full flex items-center justify-center"
+                className="w-full flex items-center justify-center relative z-0"
                 ref={swiperRef}
                 onSlideChange={(swiper) => setImgInd(swiper.activeIndex)}
               >
-                {selectedProduct.images.map((image, index) => (
-                  <SwiperSlide key={index}>
-                    <div className="swiper-zoom-container w-full h-full flex items-center justify-center">
-                      <img
-                        className="lg:w-full aspect-square h-[325px] sm:h-[400px] md:h-[450px] object-fill rounded-lg"
-                        src={image}
-                        alt={selectedProduct.name}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
+                {selectedProduct.images &&
+                  selectedProduct.images.length > 0 &&
+                  selectedProduct.images.map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="swiper-zoom-container w-full h-full flex items-center justify-center">
+                        <img
+                          className="lg:w-full aspect-square h-[325px] sm:h-[400px] md:h-[450px] object-fill rounded-lg"
+                          src={image}
+                          alt={selectedProduct.name}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                <MdOutlineZoomIn
+                  className="absolute right-2 bottom-2 text-black text-2xl cursor-pointer z-10"
+                  onClick={() => setIsZoomed(!isZoomed)}
+                />
               </Swiper>
+              {isZoomed && (
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-70 z-[50] flex items-center justify-center p-4"
+                  onClick={() => setIsZoomed(false)}
+                >
+                  <button
+                    className="absolute top-2 right-8 text-white hover:text-gray-300"
+                    onClick={() => setIsZoomed(false)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                  <div className="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center">
+                    <img
+                      src={selectedProduct.images[imgInd]}
+                      alt="Size Chart"
+                      className="w-[90%] max-h-[90vh] h-auto rounded-lg"
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
             <div className="flex gap-2 mt-4">
-              {selectedProduct.images.slice(0, 3).map((image, index) => (
-                <div
-                  key={index}
-                  className={`cursor-pointer rounded-lg relative w-1/4 aspect-square transition-all duration-300 ${
-                    imgInd === index ? "border-2 border-primary scale-100" : ""
-                  }`}
-                >
-                  <img
-                    src={image}
-                    alt="Thumbnail"
-                    className="w-full h-full object-fill rounded-lg transition-transform transform "
-                    onClick={() => swiperRef.current?.swiper.slideTo(index)}
-                  />
-                </div>
-              ))}
+              {selectedProduct.images &&
+                selectedProduct.images.length > 0 &&
+                selectedProduct.images.slice(0, 3).map((image, index) => (
+                  <div
+                    key={index}
+                    className={`cursor-pointer rounded-lg relative w-1/4 aspect-square transition-all duration-300 ${
+                      imgInd === index
+                        ? "border-2 border-primary scale-100"
+                        : ""
+                    }`}
+                  >
+                    <img
+                      src={image}
+                      alt="Thumbnail"
+                      className="w-full h-full object-fill rounded-lg transition-transform transform "
+                      onClick={() => swiperRef.current?.swiper.slideTo(index)}
+                    />
+                  </div>
+                ))}
 
               {selectedProduct.images.length > 4 && (
                 <div

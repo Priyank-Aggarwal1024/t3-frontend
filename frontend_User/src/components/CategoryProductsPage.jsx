@@ -60,7 +60,7 @@ const CategoryProductsPage = () => {
         />
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 max-w-6xl mx-auto w-full lg:grid-cols-4 sm:gap-4 gap-2 gap-y-4">
-        {category.products.length > 0 ? (
+        {category.products && category.products.length > 0 ? (
           (category.products || [])
             .sort((a, b) => (b.sortOrder || 0) - (a.sortOrder || 0))
             .map((product) => (
